@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title}} | Blog{% endblock %}
+{% block content %}
+    <p>Estas son las entradas más recientes</p>
+    <h3>{{ post.title }}</h3>
+        <span class="date">{{ post.created }}</span>
+        <p>{{ post.content }}</p>
+        {% if request.user.is_authenticated%}
+            {% for group in user.groups.all %}
+                {% if group.name == "Editores" %}
+                    <p>
+                        <a href="{% url 'admin:blog_post_change' post.id %}">Editar entrada</a>
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <a href="/">Volver a la portada</a>
+    </div>
+{% endblock %}
+        
